@@ -1,0 +1,66 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="YSY_TEST_GATEWAY_SRV" xml:lang="zh" sap:schema-version="1">
+            <EntityType Name="ZSY_SPFLI_H" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="航线" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="航班号" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Countryfr" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="国家/地区" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cityfrom" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="起飞城市" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Airpfrom" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="始发机场" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Countryto" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="国家/地区" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cityto" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="到达城市" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Airpto" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="目标机场" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NP_SFLIGHT_ITEM" Relationship="YSY_TEST_GATEWAY_SRV.NP_SFLIGHT_ITEM" FromRole="FromRole_NP_SFLIGHT_ITEM" ToRole="ToRole_NP_SFLIGHT_ITEM"/>
+            </EntityType>
+            <EntityType Name="ZSY_SPFLI_I" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="航线" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="航班号" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fldate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="日期" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="航空运费" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="航线货币" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Planetype" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="飞机类型" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Seatsmax" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="经济舱的最大容量" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Seatsocc" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="占据经济舱座位" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="NP_SFLIGHT_ITEM" sap:content-version="1">
+                <End Type="YSY_TEST_GATEWAY_SRV.ZSY_SPFLI_H" Multiplicity="0..1" Role="FromRole_NP_SFLIGHT_ITEM"/>
+                <End Type="YSY_TEST_GATEWAY_SRV.ZSY_SPFLI_I" Multiplicity="*" Role="ToRole_NP_SFLIGHT_ITEM"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_NP_SFLIGHT_ITEM">
+                        <PropertyRef Name="Carrid"/>
+                        <PropertyRef Name="Connid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_NP_SFLIGHT_ITEM">
+                        <PropertyRef Name="Carrid"/>
+                        <PropertyRef Name="Connid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="YSY_TEST_GATEWAY_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZSY_SPFLI_HSet" EntityType="YSY_TEST_GATEWAY_SRV.ZSY_SPFLI_H" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ZSY_SPFLI_ISet" EntityType="YSY_TEST_GATEWAY_SRV.ZSY_SPFLI_I" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="NP_SFLIGHT_ITEMSet" Association="YSY_TEST_GATEWAY_SRV.NP_SFLIGHT_ITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZSY_SPFLI_HSet" Role="FromRole_NP_SFLIGHT_ITEM"/>
+                    <End EntitySet="ZSY_SPFLI_ISet" Role="ToRole_NP_SFLIGHT_ITEM"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/YSY_TEST_GATEWAY_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/YSY_TEST_GATEWAY_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
