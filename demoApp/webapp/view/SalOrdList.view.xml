@@ -1,0 +1,119 @@
+<!-- helloWorld 显示视图：
+     1.xmlns 声明 xml 命名空间，sap.ui.layout、sap.ui.cor.mvc、sap.ui.core、sap.m,
+            说明xmlns:l 其中 l 为别名，后续使用中会使用前缀(别名)加标签方式指定标签来源；
+     2.controllerName 指定控制器文件，ZHAND_TR18_1001.controller.helloWorld;
+     3.Panel 面板标签使用；
+     4.content 标签使用；
+     5.Button 标签使用；
+-->
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="ZTEST_0005.controller.SalOrdList" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:tnt="sap.tnt" xmlns:t="sap.ui.table" xmlns="sap.m">
+	<Page class="sapUiSmallMargin" title="航班列表" showNavButton="true">
+		<content>
+			<Panel expandable="true" expanded="false">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="筛选" level="H3"/>
+					</Toolbar>
+				</headerToolbar>
+				<f:Form>
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanL="3" labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="2" columnsM="2"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="航线代码">
+									<f:fields>
+										<Input value="{/search/Carrid}" placeholder="请输入 航线代码..."/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="航班连接编号">
+									<f:fields>
+										<Input value="{/search/Connid}" placeholder="请输入 航班连接编号..."/>
+									</f:fields>
+								</f:FormElement>
+								<!-- <f:FormElement>
+						<f:fields>
+							<Label></Label>
+								<Button text="查询" press="onSearch" icon="sap-icon://search" />
+						</f:fields>
+					</f:FormElement> -->
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<Toolbar>
+					<Button text="搜索" icon="sap-icon://search" press="onSearch"/>
+					<Button text="清空" icon="sap-icon://sys-cancel" press="onClear"/>
+				</Toolbar>
+			</Panel>
+			<Panel>
+				<Table id="idSalesOrdList" items="{/ZSY_SPFLI_HSet}" selectionChange="vendorSelect" includeItemInSelection="true">
+					<headerToolbar>
+						<Toolbar>
+							<Button text="新建" icon="sap-icon://add" press="onNew"/>
+							<Button text="导出" icon="sap-icon://excel-attachment" press="onDataExport"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="航线代码"/>
+						</Column>
+						<!-- <Column>
+					<Text text="创建日期" />
+				</Column> -->
+						<Column>
+							<Text text="航班连接编号"/>
+						</Column>
+						<Column>
+							<Text text="始发国家/地区"/>
+						</Column>
+						<!-- <Column>
+					<Text text="凭证日期" />
+				</Column> -->
+						<Column>
+							<Text text="起飞城市"/>
+						</Column>
+						<Column>
+							<Text text="始发机场 "/>
+						</Column>
+						<Column>
+							<Text text="到达国家/地区"/>
+						</Column>
+						<Column>
+							<Text text="到达城市"/>
+						</Column>
+						<Column>
+							<Text text="目标机场"/>
+						</Column>
+					</columns>
+					<items >
+						<ColumnListItem>
+							<cells>
+								<Link text="{Carrid}" press="onPressNavTo"/>
+								<!-- <Text text="{Erdat}" /> -->
+								<Text text="{Connid}"/>
+								<Text text="{Countryfr}"/>
+								<!-- <Text text="{Audat}" /> -->
+								<Text text="{Cityfrom}"/>
+								<Text text="{Airpfrom}"/>
+								<Text text="{Countryto}"/>
+								<Text text="{Cityto}"/>
+								<Text text="{Airpto}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Panel>
+		</content>
+		<footer>
+			<Bar></Bar>
+		</footer>
+	</Page>
+</mvc:View>
